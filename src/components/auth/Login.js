@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
 
+
+// login function utilizing user data from database.json
 export const Login = () => {
     const [email, set] = useState("hpassfield7@netvibes.com")
     const navigate = useNavigate()
