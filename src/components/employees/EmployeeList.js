@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import "./Employees.css"
+import { Employee } from "./Employee"
 
 export const EmployeeList = () => {
     // set up our state variable... will need to import useState from react
@@ -28,13 +29,10 @@ export const EmployeeList = () => {
     return <article className="employees">
         {
             employees.map(
-                (employee) => {
-                    return <section className="employee" key={`employee--${employee.id}`}>
-                        <div>Name: {employee.fullName}</div>
-                        <div>Email: {employee.email}</div>
-                    </section>
-                }
-            )
+                (employee) => <Employee key={`employee--${employee.id}`}
+                id={employee.id} 
+                fullName={employee.fullName} 
+                email={employee.email} />)
         }
     </article>
 }
