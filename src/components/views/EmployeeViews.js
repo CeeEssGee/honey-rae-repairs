@@ -1,7 +1,8 @@
-import { useEffect } from "react"
 import { Outlet, Route, Routes } from "react-router-dom"
 import { TicketContainer } from "../tickets/TicketContainer"
 import { EmployeeList } from "../employees/EmployeeList"
+import { EmployeeDetails } from "../employees/EmployeeDetails"
+import { CustomerList } from "../customers/CustomerList"
 
 export const EmployeeViews = () => {
 	return (
@@ -24,8 +25,13 @@ export const EmployeeViews = () => {
                 {/* Employees need to see TicketContainer, so it shows on the EE view */}
 
                 <Route path="tickets" element={ <TicketContainer /> } />
+
+                {/* To be the customer list */}
+                <Route path="customers" element={ <CustomerList /> } />
                 <Route path="employees" element={ <EmployeeList /> } />
 
+                {/* For the Route path ="employees/#" - we could be looking at any number of employee, so we are going to create a variable to capture that number, we do that by using a colon and then the name of the variable... Leaving blank react fragment until you've created and replaced with EmployeeDetails */}
+                <Route path="employees/:employeeId" element={ <EmployeeDetails /> } />
 
 				
 				
@@ -33,12 +39,4 @@ export const EmployeeViews = () => {
         </Routes>
     )
 }
-
-// export const ApplicationViews = () => {
-// 	return <>
-// 		<h1 className="title--main">Honey Rae Repairs</h1>
-// 		<div>Your one-stop shop for repairing your tech</div>
-// 	</>
-// }
-
 
