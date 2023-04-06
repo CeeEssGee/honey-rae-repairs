@@ -2,6 +2,20 @@ import { useState, useEffect } from "react"
 import "./Employees.css"
 import { Employee } from "./Employee"
 
+/*
+This code defines a functional component called "EmployeeList" that exports a constant.
+
+The component uses React's "useState" hook to define a state variable called "employees" and sets its initial value as an empty array. It also uses the "useEffect" hook to execute a function after the initial rendering of the component.
+
+Within the useEffect function, a fetch statement is used to make a GET request to the server's API endpoint for retrieving staff users. When the response is returned from the server, it is converted to a JSON object and then passed to the "setEmployees" function to update the state variable "employees" with the array of employees returned from the API.
+
+The second argument to the useEffect hook is an empty array which means the effect will only be executed once, when the component is first mounted.
+
+The component then returns some JSX which iterates over the "employees" array using the map function and returns a component called "Employee" for each employee object in the array. The "key" attribute is used to give each employee a unique identifier.
+
+Overall, this component fetches data from a local server's API endpoint, sets the data as the state variable "employees" using React's "useState" and "useEffect" hooks, and then maps through the array of employees and returns a component for each employee object in the array.
+*/
+
 export const EmployeeList = () => {
     // set up our state variable... will need to import useState from react
     const [employees, setEmployees] = useState([])

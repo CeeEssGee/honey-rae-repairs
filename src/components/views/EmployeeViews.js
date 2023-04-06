@@ -3,6 +3,7 @@ import { TicketContainer } from "../tickets/TicketContainer"
 import { EmployeeList } from "../employees/EmployeeList"
 import { EmployeeDetails } from "../employees/EmployeeDetails"
 import { CustomerList } from "../customers/CustomerList"
+import { CustomerDetails } from "../customers/CustomerDetails"
 
 export const EmployeeViews = () => {
 	return (
@@ -28,6 +29,8 @@ export const EmployeeViews = () => {
 
                 {/* To be the customer list */}
                 <Route path="customers" element={ <CustomerList /> } />
+                <Route path="customers/:customerId" element={ <CustomerDetails /> } />
+
                 <Route path="employees" element={ <EmployeeList /> } />
 
                 {/* For the Route path ="employees/#" - we could be looking at any number of employee, so we are going to create a variable to capture that number, we do that by using a colon and then the name of the variable... Leaving blank react fragment until you've created and replaced with EmployeeDetails */}
