@@ -198,21 +198,131 @@ Customer.js
 
 <!-- 1-12-3 Create a CustomerList module that contains a component function that fetches all customers and iterates the array in the JSX to display the name of each customer by passing each object to the Customer component as a prop. -->
         I think I completed this during 1-12-2 above
-
-
 <!-- 1-12-4 Create a CustomerDetails component that should display the full name, email, phone number, and address of the customer when the customer's name is clicked in the list view. -->
 CustomerDetails.js
         export fx CustomerDetails
 EmployeeViews.js
         Update
+<!-- It works! -->
+
+<!-- 1-13-1 Employee Edit Profile -->
+EmployeeNav.js - Add a profile link
+EmployeeViews.js - Add a profile Route - React fragment
+create profile folder
+create Profile.js
+create EmployeeForm.js
+Profile.js - copy code from NavBar.js and tweak
+EmployeeViews.js - update React fragment to Profile
+EmployeeForm.js - write basic code with React fragment
+Profile.js - replace fragments with CustomerForm and EmployeeForm
+EmployeeForm.js - copy boilerplate code
+        Update onClick for the Save Profile button
+        Add event as the parameter for the handleSaveButtonClick
+        create a state variable 
+        Line 5:
+                const [profile, updateProfile] = useState({
+			// Since we are in a form, we are going to provide some properties that are needed on this with some default values - the initial state object needs specialty, rate, and userId with some initial values
+				specialty: "",
+				rate: 0,
+				userId: 0
+                })
+        Create a useEffect and fetch to go to the API and get the profile state
+                To get the employee profile, we need to get one of the employee objects based off of their userId because what we have stored in local storage is not the employeeID or customerId, but the userId
+                Initial API URL is http://localhost:8088/employees?userId=4 
+                having the userId hard coded doesn't make sense, so we'll need to figure out how to move from there. 
+        Copy localHoneyUser and honeyUserObject from Profile.js
+        the honeyUserObject has the userId
+        replace userId=4 with a string interpolation 
+                useEffect(() => {
+                fetch(`http://localhost:8088/employees?userId=${honeyUserObject.id}`) // do you need a return
+                .then(response => response.json())
+                .then((data) => {
+                        const employeeObject = data[0]
+                        updateProfile(employeeObject)
+                })
+                }, [])
+        In the fieldsets, we need to update onChange, copy the state, modify the state, and the update the state with the copy
+                const copy = { ...profile}
+                copy.specialty = evt.target.value
+                updateProfile(copy)
+        for the rate, we need a parseFloat
+                const copy = { ...profile}
+                copy.rate = parseFloat(evt.target.value, 2)
+                updateProfile(copy)
+        Final step is to go back and update permanent state when they click on Save Profile button at the TODO: Perform PUT fetch() call to update the profile and navigate user to home
+                return fetch(`http://localhost:8088/employees/${profile.id}`, {
+                        method: "PUT",
+                        headers: {
+                        "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(profile)
+                }) 
+                .then(response => response.json())
+                .then(() => {
+                        // do nothing
+                })
+                
+
+        
+
+<!-- 1-14-1 Customer Edit Profile -->
+CustomerNav.Js - Add a porfile link
+CustomerViews.js - Add a profile Route - React fragment
+create CustomerForm.js
+CustomerViews.js - update React fragment to Profile
+CustomerForm.js - write basic code with React fragment
+CustomerForm.js - copied boilerplate EmployeeForm code 
+
+Update onClick for the Save Profile button
+        Add event as the parameter for the handleSaveButtonClick
+        create a state variable 
+        Line 5:
+                const [profile, updateProfile] = useState({
+			// Since we are in a form, we are going to provide some properties that are needed on this with some default values - the initial state object needs specialty, rate, and userId with some initial values
+				specialty: "",
+				rate: 0,
+				userId: 0
+                })
+        Create a useEffect and fetch to go to the API and get the profile state
+                To get the employee profile, we need to get one of the employee objects based off of their userId because what we have stored in local storage is not the employeeID or customerId, but the userId
+                Initial API URL is http://localhost:8088/employees?userId=4 
+                having the userId hard coded doesn't make sense, so we'll need to figure out how to move from there. 
+        Copy localHoneyUser and honeyUserObject from Profile.js
+        the honeyUserObject has the userId
+        replace userId=4 with a string interpolation 
+                useEffect(() => {
+                fetch(`http://localhost:8088/employees?userId=${honeyUserObject.id}`) // do you need a return
+                .then(response => response.json())
+                .then((data) => {
+                        const employeeObject = data[0]
+                        updateProfile(employeeObject)
+                })
+                }, [])
+        In the fieldsets, we need to update onChange, copy the state, modify the state, and the update the state with the copy
+                const copy = { ...profile}
+                copy.specialty = evt.target.value
+                updateProfile(copy)
+        for the rate, we need a parseFloat
+                const copy = { ...profile}
+                copy.rate = parseFloat(evt.target.value, 2)
+                updateProfile(copy)
+        Final step is to go back and update permanent state when they click on Save Profile button at the TODO: Perform PUT fetch() call to update the profile and navigate user to home
+                return fetch(`http://localhost:8088/employees/${profile.id}`, {
+                        method: "PUT",
+                        headers: {
+                        "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(profile)
+                }) 
+                .then(response => response.json())
+                .then(() => {
+                        // do nothing
+                })
+<!-- Employee Profile Form and Customer Profile Form work!!! -->
 
 
 
-
- - per video and instructions
-
-
- <!-- To-Do -->
+<!-- To-Do -->
 
 
 <!-- Question -->
