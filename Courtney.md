@@ -321,6 +321,15 @@ Update onClick for the Save Profile button
 <!-- Employee Profile Form and Customer Profile Form work!!! -->
 
 
+<!-- Success Message -->
+        In this next section, after you have completed the functionality, you can implement a slide in message for the employee once the data is saved. It's always nice to provide some feedback to the user of your application when things work, or don't work.
+index.css - add the boilerplate code
+CustomerForm.js and EmployeeForm.js
+        add the given code before the <form> element (needed a fragment to enclose JSX code)
+        add state and observer code
+        chain the given code to the PUT operation
+<!-- It works!!! -->
+
 
 <!-- To-Do -->
 

@@ -12,6 +12,15 @@ export const CustomerForm = () => {
     const localHoneyUser = localStorage.getItem("honey_user") // a string
     const honeyUserObject = JSON.parse(localHoneyUser) // an object with 2 keys (id and staff)
 
+    const [feedback, setFeedback] = useState("")
+
+    useEffect(() => {
+        if (feedback !== "") {
+            // Clear feedback to make entire element disappear after 3 seconds
+            setTimeout(() => setFeedback(""), 3000);
+        }
+    }, [feedback])
+
     // TODO: Get customer profile info from API and update state
     useEffect(() => {
         fetch(`http://localhost:8088/customers?userId=${honeyUserObject.id}`)
@@ -38,11 +47,15 @@ export const CustomerForm = () => {
         })
             .then(response => response.json())
             .then(() => {
-                // do nothing
+                setFeedback("Employee profile successfully saved")
             })
     }
 
     return (
+        <>
+        <div className={`${feedback.includes("Error") ? "error" : "feedback"} ${feedback === "" ? "invisible" : "visible"}`}>
+    {feedback}
+</div>
         <form className="profile">
             <h2 className="profile__title">Update Profile</h2>
             <fieldset>
@@ -85,5 +98,6 @@ export const CustomerForm = () => {
                 Save Profile
             </button>
         </form>
+        </>
     )
 }
