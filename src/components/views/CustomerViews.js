@@ -2,6 +2,7 @@ import { Outlet, Route, Routes } from "react-router-dom"
 import { TicketForm } from "../tickets/TicketForm"
 import { TicketList } from "../tickets/TicketList"
 import { Profile } from "../profile/Profile"
+import { TicketEdit } from "../tickets/TicketEdit"
 
 export const CustomerViews = () => {
 	return (
@@ -24,6 +25,8 @@ export const CustomerViews = () => {
                 {/* Customers need to see TicketList and TicketForm, so that shows on the CustomerViews */}
 
                 <Route path="tickets" element={ < TicketList /> } />
+
+                <Route path="tickets/:ticketId/edit" element={ < TicketEdit /> } />
 
 				{/* had to let this TicketForm autocomplete in order to work */}
 				<Route path="ticket/create" element={ <TicketForm /> } />

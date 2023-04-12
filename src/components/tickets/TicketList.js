@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom" // useNavigate() hook
 import "./Tickets.css"
+import { Link } from "react-router-dom"
 
 
 // added the key from TicketContainer (parent) - its value is the actual state from the parent - the search terms themselves. That is now considered state of this component. It is not a direct state variable, but it is a state variable that we kind of inherited from the parent so we can also observe that. Remember, to observe state, we need a useEffect(). See my useEffect below the localHoneyUser and honeyUserObject variables.
@@ -150,7 +151,10 @@ export const TicketList = ({ searchTermState }) => {
                 filteredTickets.map( // changed this to filteredTickets to show only the filteredTickets and not ALL of the tickets
                     (ticket) => {
                         return <section key={ticket.id} className="ticketSection">
-                            <header>{ticket.description}</header>
+                            <header>
+                                <Link to={`/tickets/${ticket.id}/edit`}>Ticket {ticket.id}</Link>
+                            </header>
+                            <section>{ticket.description}</section>
                             <footer>Emergency: {ticket.emergency ? "🧨" : "No"}</footer>
                         </section>
                     }
