@@ -319,9 +319,7 @@ Update onClick for the Save Profile button
                         // do nothing
                 })
 <!-- Employee Profile Form and Customer Profile Form work!!! -->
-
-
-<!-- Success Message -->
+<!-- Ch 13&14 Success Message -->
         In this next section, after you have completed the functionality, you can implement a slide in message for the employee once the data is saved. It's always nice to provide some feedback to the user of your application when things work, or don't work.
 index.css - add the boilerplate code
 CustomerForm.js and EmployeeForm.js
@@ -329,6 +327,27 @@ CustomerForm.js and EmployeeForm.js
         add state and observer code
         chain the given code to the PUT operation
 <!-- It works!!! -->
+
+<!-- Ch. 15 - Customer: Edit Ticket Details -->
+TicketEdit.js 
+        create and return a React fragment
+TicketList.js 
+        Update TicketList JSX so that the ticket id is in the header, and is a <Link> component that routes the user to /tickets/{id}/edit
+                <header>
+                        <Link to={`/tickets/${ticket.id}/edit`}>Ticket {ticket.id}</Link>
+                </header>
+                <section>{ticket.description}</section>
+                <footer>Emergency: {ticket.emergency ? "🧨" : "No"}</footer>
+CustomerViews.js
+        Add a route to the customer views that will render the TicketEdit component.
+              <Route path="tickets/:ticketId/edit" element={ ??? } />
+TicketEdit.js
+        Create a new module src/components/tickets/TicketEdit.js.
+        The edit form is, largely, the same as the TicketForm component. It has some important differences.
+        1. You need to GET the data based on the route parameter
+        2. The request to save the data is a PUT instead of a POST
+        3. The checked attribute of the checkbox must be bound to the ticket.emergency property
+I was able to edit the tickets, but I couldn't get it to show the original tickets information. There were 6 places in the code that were different, but I think 2-3 of them were just different ways to do things. 
 
 
 <!-- To-Do -->
