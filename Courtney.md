@@ -327,7 +327,6 @@ CustomerForm.js and EmployeeForm.js
         add state and observer code
         chain the given code to the PUT operation
 <!-- It works!!! -->
-
 <!-- Ch. 15 - Customer: Edit Ticket Details -->
 TicketEdit.js 
         create and return a React fragment
@@ -348,7 +347,22 @@ TicketEdit.js
         2. The request to save the data is a PUT instead of a POST
         3. The checked attribute of the checkbox must be bound to the ticket.emergency property
 I was able to edit the tickets, but I couldn't get it to show the original tickets information. There were 6 places in the code that were different, but I think 2-3 of them were just different ways to do things. 
-
+<!-- It works!!! -->
+<!-- Ch. 16a - Edit for Customers Only -->
+Ticket.js
+        Create Ticket
+        move the returned section from TicketList.js to Ticket.js
+        import Link from react-router-dom
+TicketList.js
+        remove { return }, will use implicit return 
+        the Ticket component plus ticketObject={ticket}
+Ticket.js
+        deconstruct ticketObject
+        replaced ticket.__ with ticketObject.__
+        removed the key
+TicketList.js
+        Added the key just after the Ticket component in the map function/method(?)
+<!-- It works!!! -->
 
 <!-- To-Do -->
 
