@@ -364,6 +364,25 @@ TicketList.js
         Added the key just after the Ticket component in the map function/method(?)
 <!-- It works!!! -->
 
+<!-- Ch. 16b - Show current assignment -->
+Ticket.js
+        Move Emergency information from the footer into another section
+TicketList.js
+        update URL in original fetch with
+                http://localhost:8088/serviceTickets?_embed=employeeTickets
+Ticket.js
+        in the footer, write some logic, if ticketObject.employeeTickets.length (meaning if this is truthy), 
+TicketList.js
+        fetch employees?_expand=user
+        add employees as a state variable
+        add employees as a prop
+Ticket.js
+        deconstruct employees
+<!-- It works!!! -->
+
+
+
+
 <!-- To-Do -->
 
 

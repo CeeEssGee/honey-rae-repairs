@@ -9,6 +9,8 @@ import { Ticket } from "./Ticket"
 export const TicketList = ({ searchTermState }) => {
     const [tickets, setTickets] = useState([]) // state variable - we don't want to modify this initial array of tickets
 
+    const [employees, setEmployees] = useState([])
+
     // another state variable - this will initialize as an empty array but below - in our second useEffect, we will modify it depending on whether the user is a customer or an employee
     const [filteredTickets, setFiltered] = useState([])
 
@@ -67,12 +69,19 @@ export const TicketList = ({ searchTermState }) => {
             // paste my URL from my JSON server within the (`URL`) - go get all of the tickets, especially since we are logged in as an employee by default
 
             // now I can use the setter function (setTickets) listed above - I want to update my tickets, whose initial value is an empty array and I want to change it to the entire array of service tickets that I got from the API. That is the purpose of the setter fx
-            fetch(`http://localhost:8088/serviceTickets`)
+            fetch(`http://localhost:8088/serviceTickets?_embed=employeeTickets`)
                 .then(response => response.json())
                 .then((ticketArray) => { // add a parameter to capture all of the data after the JSON processing is done
                     setTickets(ticketArray) // call setTickets fx and pass it the parameter of what we want the new value to be, which is the ticketArray
 
                 })
+
+            fetch(`http://localhost:8088/employees?_expand=user`)
+            .then(response => response.json())
+            .then((employeeArray) => {
+                setEmployees(employeeArray)
+            
+            })
 
         },
         [] // When this array is empty, you are observing initial component state
@@ -150,7 +159,7 @@ export const TicketList = ({ searchTermState }) => {
         <article className="ticketArticle">
             {
                 filteredTickets.map( // changed this to filteredTickets to show only the filteredTickets and not ALL of the tickets
-                    (ticket) => < Ticket key={`ticket--${ticket.id}`} isStaff={honeyUserObject.staff} ticketObject={ticket} />
+                    (ticket) => < Ticket key={`ticket--${ticket.id}`} employees={employees} isStaff={honeyUserObject.staff} ticketObject={ticket} />
                 )
             }
         </article>
