@@ -22,8 +22,28 @@ export const Ticket = ({ ticketObject, currentUser, employees, getAllTickets }) 
     //TODO: Function that determines if the current user can close the ticket
     const canClose = () => {
         // need an if statement
-        if (userEmployee?.id === assignedEmployee?.id && ticketObject.dateCompleted === "") {
+        if (currentUser.isStaff === true && userEmployee?.id === assignedEmployee?.id && ticketObject.dateCompleted === "") {
             return <button onClick={closeTicket} className="ticket__finish">Finished</button>
+        }
+        else {
+            return ""
+        }
+
+    }
+
+    const deleteButton = () => {
+        // We need an if statement - we've already got the logic that says a customer can only see their own tickets, so we don't need additional logic to check on that. But we probably need to check to make sure this person is not staff. If we don't do that, then staff members will be able to see it.
+        if (!currentUser.staff) {
+            return <button onClick={() => {
+                // adding the fetch statement for a DELETE
+                fetch(`http://localhost:8088/serviceTickets/${ticketObject.id}`, {
+                    method: "DELETE"
+                })
+                .then(() => {
+                    // GET the state from the API again
+                    getAllTickets()
+                })
+            }} className="ticket__delete">Delete</button>
         }
         else {
             return ""
@@ -50,13 +70,13 @@ export const Ticket = ({ ticketObject, currentUser, employees, getAllTickets }) 
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(copy)
-        }) 
-        .then(response => response.json())
-        // The API state has been updated, so we need to turn around and get that updated API state, and if we are passing a function into a .then, we can just pass it between the parentheses
-        .then(() => {
-            // GET the state from the API again
-            getAllTickets()
         })
+            .then(response => response.json())
+            // The API state has been updated, so we need to turn around and get that updated API state, and if we are passing a function into a .then, we can just pass it between the parentheses
+            .then(() => {
+                // GET the state from the API again
+                getAllTickets()
+            })
     }
 
 
@@ -64,24 +84,24 @@ export const Ticket = ({ ticketObject, currentUser, employees, getAllTickets }) 
     const buttonOrNoButton = () => {
         if (currentUser.staff) {
             return <button className="ticket__claim"
-            onClick={() => {
-                fetch(`http://localhost:8088/employeeTickets`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        employeeId: userEmployee.id, 
-                        serviceTicketId: ticketObject.id 
+                onClick={() => {
+                    fetch(`http://localhost:8088/employeeTickets`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            employeeId: userEmployee.id,
+                            serviceTicketId: ticketObject.id
+                        })
                     })
-                }) 
-                .then(response => response.json())
-                .then(() => {
-                    // GET the state from the API again
-                    getAllTickets()
-                })
-            }}
-                >Claim</button>
+                        .then(response => response.json())
+                        .then(() => {
+                            // GET the state from the API again
+                            getAllTickets()
+                        })
+                }}
+            >Claim</button>
         } else {
             return ""
         }
@@ -99,17 +119,20 @@ export const Ticket = ({ ticketObject, currentUser, employees, getAllTickets }) 
         <section>{ticketObject.description}</section>
         <section>Emergency: {ticketObject.emergency ? "🧨" : "No"}</section>
         <div className="footer-div">
-        <footer className="ticket__footer">
-            {/* condiitional logic on whether a ticket is assigned to an employee or available to be claimed */}
-            {
-                ticketObject.employeeTickets.length
-                    ? `Assigned to ${assignedEmployee !== null ? assignedEmployee?.user?.fullName : ""}`
-                    : buttonOrNoButton()                    
-            }
-            {
-                canClose()
-            }
-        </footer>
+            <footer className="ticket__footer">
+                {/* condiitional logic on whether a ticket is assigned to an employee or available to be claimed */}
+                {
+                    ticketObject.employeeTickets.length
+                        ? `Assigned to ${assignedEmployee !== null ? assignedEmployee?.user?.fullName : ""}`
+                        : buttonOrNoButton()
+                }
+                {
+                    canClose()
+                }
+                {
+                    deleteButton()
+                }
+            </footer>
         </div>
     </section>
 }
