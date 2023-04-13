@@ -397,6 +397,15 @@ Ticket.js - need 2 functions
                 fetch call
                 get the state from the API again
 <!-- It works!!! -->
+<!-- Ch. 18 - Customer: Delete Ticket -->
+Ticket.js
+        Had to add logic to canClose so the Finish button didn't show for customers on tickets that were not assigned and were not completed
+        canDelete - similar to canClose - copy and paste
+        make tweaks
+                We need an if statement - we've already got the logic that says a customer can only see their own tickets, so we don't need additional logic to check on that. But we probably need to check to make sure this person is not staff. If we don't do that, then staff members will be able to see it.
+        after invoking canClose(), we can invoke deleteButton()
+        deleteButton = implement the onClick now by adding the fetch
+<!-- It works!!! -->
 
 
 
