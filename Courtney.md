@@ -379,7 +379,24 @@ TicketList.js
 Ticket.js
         deconstruct employees
 <!-- It works!!! -->
-
+<!-- Ch. 17 - Employee: Close Ticket -->
+Tickets.css
+        tweak css to match Steve's
+Ticket.js - need 2 functions
+        canClose
+                Is this ticket already closed?
+                Is the logged-in user the one assigned to it?
+                        If so, I want a button to show for that user to be able to close the ticket when it's completed.
+        closeTicket
+                Update the API with a new dateCompleted value for this ticket
+        canClose
+                need an if statement
+                else return empty string
+        closeTicket
+                build our copy data
+                fetch call
+                get the state from the API again
+<!-- It works!!! -->
 
 
 
